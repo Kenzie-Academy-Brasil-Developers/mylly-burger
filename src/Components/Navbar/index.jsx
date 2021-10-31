@@ -14,9 +14,14 @@ import { FaSearch, FaShoppingCart, FaUserAlt, FaWpforms, FaAward } from "react-i
 import { MdOutlineLogout } from "react-icons/md";
 import {BsFillAwardFill} from "react-icons/bs"
 import { RiUserFollowFill } from "react-icons/ri"
+import { useContext } from "react";
+import { CartContext } from "../../Providers/Cart/index"
+
 const Navbar = () => {
   const [open, setOpen] = useState(false);
-  
+  const {CartIsOpen} = useContext(CartContext);
+  // const [cartOpen, setCartOpen] = useState(false);
+
   return (
     <>
       <Nav>
@@ -35,7 +40,7 @@ const Navbar = () => {
 
         <NavMenu open={open}>
           <div>
-            <NavBtn>
+            <NavBtn onClick = {CartIsOpen} >
               <NavBtnLink className="invalid" to="#">
                 {<FaShoppingCart />}Carrinho
               </NavBtnLink>
@@ -45,10 +50,10 @@ const Navbar = () => {
             </NavBtn>
 
             <NavBtn>
-              <NavBtnLink to="#">{<RiUserFollowFill/>}Login</NavBtnLink>
+              <NavBtnLink to="/login">{<RiUserFollowFill/>}Login</NavBtnLink>
             </NavBtn>
             <NavBtn>
-              <NavBtnLink to="#">{<FaWpforms/>}Cadastre-se</NavBtnLink>
+              <NavBtnLink to="/signup">{<FaWpforms/>}Cadastre-se</NavBtnLink>
             </NavBtn>
 
             <NavBtn >
