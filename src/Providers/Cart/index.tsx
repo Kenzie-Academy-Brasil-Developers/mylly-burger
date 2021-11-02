@@ -5,6 +5,7 @@ import {
   ReactNode,
   useContext,
 } from "react";
+import toast from "react-hot-toast";
 
 interface ICartProvider {
   children: ReactNode;
@@ -37,22 +38,29 @@ export const CartProvider = ({ children }: ICartProvider) => {
   const [openCart, setOpenCart] = useState(false);
 
   const AddProductsCart = (item:any) => {
-    setCartProducts([...cartProducts, item]);
+    if(!cartProducts.includes(item)){
+      setCartProducts([...cartProducts, item]);
+      toast.success("Item foi adicionado ao carrinho.")
+    }
+    else{
+      toast.error("O item já está adicionado no carrinho.")
+    }
   };
   const removeProductsCart = (item:any) => {
     const newList = cartProducts.filter(
       (element) => element.id !== item.id
     );
+    toast.error("O item foi removido do carrinho")
     setCartProducts(newList);
   };
 
   const CartIsOpen = () => {
-      console.log( "oi" )
     setOpenCart(!openCart);
   };
 
   const removerAll = () => {
       const newArr:any = [];
+      toast.error("Todos os itens foram removidos do carrinho")
       setCartProducts(newArr)
   }
 

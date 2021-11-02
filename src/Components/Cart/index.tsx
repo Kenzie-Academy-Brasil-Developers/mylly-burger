@@ -1,4 +1,3 @@
-import { ProductsContext } from "../../Providers/Catalogue/index";
 import Button from "../Button/index";
 import { FaTrashAlt } from "react-icons/fa";
 import { useState } from "react";
@@ -7,7 +6,6 @@ import { useContext } from "react";
 import { CartContext } from "../../Providers/Cart/index";
 
 const Cart = () => {
-  const { products } = useContext(ProductsContext);
   const { openCart, cartProducts, CartIsOpen, removerAll, removeProductsCart } =
     useContext(CartContext);
   return (
@@ -31,7 +29,7 @@ const Cart = () => {
                     <FaTrashAlt />
                   </span>
                 </h4>
-                {/* Contador de unidades */}
+                {/* Contador de unidades */} <span>Contador de unidades</span>:
               </div>
             </Card>
           ))

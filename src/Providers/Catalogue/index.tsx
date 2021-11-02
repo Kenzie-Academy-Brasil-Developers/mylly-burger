@@ -13,12 +13,14 @@ interface IProductsProvider {
 
 interface ProductsProviderData {
     products: any;
+    filteredProducts: any;
+    showProducts: (valueInput: IProducts) => void
   }
 export const ProductsContext = createContext<ProductsProviderData>({} as ProductsProviderData );
 
 export const ProductsProvider = ({ children }: IProductsProvider) => {
   const [products, setProducts] = useState([]);
-
+  const [ filteredProducts, setFilteredProducts ] = useState([])
   const getProducts = () => {
     axios
       .get("https://burguer-api-leonam.herokuapp.com/products")
@@ -30,8 +32,16 @@ export const ProductsProvider = ({ children }: IProductsProvider) => {
     console.log(getProducts)
   }, []);
 
+  const showProducts = (valueInput: any) => {
+    const filterProduct = products.filter((prod:any) => prod.name === valueInput)
+     setFilteredProducts(filterProduct)
+
+ }
+
+ 
+
   return (
-    <ProductsContext.Provider value={{products}}>
+    <ProductsContext.Provider value={{products, showProducts, filteredProducts}}>
       {children}
     </ProductsContext.Provider>
   );

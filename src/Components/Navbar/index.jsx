@@ -16,11 +16,14 @@ import {BsFillAwardFill} from "react-icons/bs"
 import { RiUserFollowFill } from "react-icons/ri"
 import { useContext } from "react";
 import { CartContext } from "../../Providers/Cart/index"
-
+import {PromotionsContext } from "../../Providers/Promotions/index"
+import {ProductsContext } from "../../Providers/Catalogue/index"
 const Navbar = () => {
   const [open, setOpen] = useState(false);
   const {CartIsOpen} = useContext(CartContext);
-  // const [cartOpen, setCartOpen] = useState(false);
+  const { ModalIsOpen } = useContext(PromotionsContext);
+  const {showProducts} = useContext(ProductsContext)
+  const [inputValue, setInputValue] = useState("")
 
   return (
     <>
@@ -32,8 +35,8 @@ const Navbar = () => {
           </h1>
         </NavLink>
         <Search>
-          <input placeholder="Ex.: Big Q2" />
-          <button>
+          <input value = {inputValue} onChange = {(e) => setInputValue((e.target.value))}placeholder="Ex.: Big Q2" />
+          <button onClick = {() => showProducts(inputValue)}>
             <FaSearch />
           </button>
         </Search>
@@ -45,8 +48,10 @@ const Navbar = () => {
                 {<FaShoppingCart />}Carrinho
               </NavBtnLink>
             </NavBtn>
-            <NavBtn>
-              <NavBtnLink to="#">{<BsFillAwardFill/>}Promoções</NavBtnLink>
+            <NavBtn onClick = {ModalIsOpen}>
+              <NavBtnLink to="#">
+                {<BsFillAwardFill/>}Promoções
+              </NavBtnLink>
             </NavBtn>
 
             <NavBtn>
